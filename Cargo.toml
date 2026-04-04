@@ -5,4 +5,7 @@ edition = "2024"
 
 [workspace]
 resolver = "3"
-members = ["variables"]
+members = [
+    "variables",
+    "data-types"
+]
