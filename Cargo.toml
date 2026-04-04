@@ -7,5 +7,6 @@ edition = "2024"
 resolver = "3"
 members = [
     "variables",
-    "data-types"
+    "data-types",
+    "function"
 ]
