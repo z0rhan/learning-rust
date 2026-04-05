@@ -11,6 +11,9 @@ fn loop_with_for()
     for number in (1..5).rev()
     {
         println!("{number}");
+        // break can also be used here but has to be used without a value
+        // since for evaluates to ()
+        break
     }
 }
 
@@ -23,6 +26,8 @@ fn loop_with_while()
     {
         println!("number : {number}");
         number -= 1;
+        // break can be used here but has to be used without a value
+        // since while evaluates to ()
     }
 }
 
