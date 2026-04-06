@@ -1,3 +1,4 @@
+
 fn main() {
     let mut x = 1;
 
@@ -21,6 +22,7 @@ fn main() {
     let celsius = fahrenheit_to_celsius(temperature);
     println!("Fahrenheit {temperature} in Celsius is {celsius}");
 
+    print_lyrics();
 }
 
 
@@ -84,4 +86,102 @@ fn celsius_to_fahrenheit(celsius: f64) -> f64
 fn fahrenheit_to_celsius(fahrenheit: f64) -> f64
 {
     (fahrenheit - 32.0) * (5.0 / 9.0)
+}
+
+
+fn print_lyrics()
+{
+    let mut day_count = 1;
+
+    while day_count < 13
+    {
+        let current_day_str = get_day_stirng(day_count);
+
+        println!("On the {current_day_str} day of Christmas, my true love sent to me");
+
+        if day_count > 11 {
+            println!("Twelve drummers drumming");
+        }
+        if day_count > 10 {
+            println!("Eleven pipers piping");
+        }
+        if day_count > 9 {
+            println!("Ten lords a-leaping");
+        }
+        if day_count > 8 {
+            println!("Nine ladies dancing");
+        }
+        if day_count > 7 {
+            println!("Eight maids a-milking");
+        }
+        if day_count > 6 {
+            println!("Seven swans a-swimming");
+        }
+        if day_count > 5 {
+            println!("Six geese a-laying");
+        }
+        if day_count > 4 {
+            println!("Five golden rings");
+        }
+        if day_count > 3 {
+            println!("Four calling birds");
+        }
+        if day_count > 2 {
+            println!("Three french hens");
+        }
+        if day_count > 1 {
+            println!("Two turtle doves and");
+        }
+        println!("A partridge in a pear tree");
+
+        day_count += 1
+    }
+}
+
+fn get_day_stirng(day: i32) -> String
+{
+    if day == 1
+    {
+        "first".to_string()
+    }
+    else if day == 2
+    {
+        "second".to_string()
+    }
+    else if day == 3
+    {
+        "third".to_string()
+    }
+    else if day == 4
+    {
+        "forth".to_string()
+    }
+    else if day == 5
+    {
+        "fifth".to_string()
+    }
+    else if day == 6
+    {
+        "sixth".to_string()
+    }
+    else if day == 7
+    {
+        "seventh".to_string()
+    }
+    else if day == 8
+    {
+        "eigth".to_string()
+    }
+    else if day == 9
+    {
+        "ninth".to_string()
+    }
+    else if day == 10
+    {
+        "tenth".to_string()
+    }
+    else
+    {
+        "eleventh".to_string()
+    }
 }
