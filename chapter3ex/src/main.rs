@@ -14,6 +14,13 @@ fn main() {
         println!("The {x}th fibonnaci number is {fibonnaci_num}");
         x += 1;
     }
+
+    let temperature = 38.0;
+    let fahrenheit = celsius_to_fahrenheit(temperature);
+    println!("Celsius {temperature} in Fahrenheit is {fahrenheit}");
+    let celsius = fahrenheit_to_celsius(temperature);
+    println!("Fahrenheit {temperature} in Celsius is {celsius}");
+
 }
 
 
@@ -66,4 +73,15 @@ fn fibonnaci_with_loop(n: i32) -> i32
 
         result
     }
+}
+
+fn celsius_to_fahrenheit(celsius: f64) -> f64
+{
+    // so floats have to be explicitly declared with .0
+    celsius * (9.0 / 5.0) + 32.0
+}
+
+fn fahrenheit_to_celsius(fahrenheit: f64) -> f64
+{
+    (fahrenheit - 32.0) * (5.0 / 9.0)
 }
