@@ -9,4 +9,4 @@ members = [
     "variables",
     "data-types",
     "function"
-, "control-flow", "chapter3ex"]
+, "control-flow", "chapter3ex", "ownership"]
