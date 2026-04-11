@@ -9,4 +9,4 @@ members = [
     "variables",
     "data-types",
     "function"
-, "control-flow", "chapter3ex", "ownership", "ref-and-borrow"]
+, "control-flow", "chapter3ex", "ownership", "ref-and-borrow", "slices"]
