@@ -9,4 +9,4 @@ members = [
     "variables",
     "data-types",
     "function"
-, "control-flow", "chapter3ex", "ownership", "ref-and-borrow", "slices", "structs", "methods", "enums", "match-construct", "concise-control-flow", "modules", "vector", "string", "hash-map"]
+, "control-flow", "chapter3ex", "ownership", "ref-and-borrow", "slices", "structs", "methods", "enums", "match-construct", "concise-control-flow", "modules", "vector", "string", "hash-map", "chapter8ex"]
