@@ -7,7 +7,12 @@ fn main() {
     println!("The median is {median}");
 
     let mode = mode(&vec);
-    println!("The mode is {mode}");
+    if let Some(value) = mode {
+        println!("The mode is {value}");
+    }
+    else {
+        println!("There is no mode")
+    }
 
     let str = "apple";
     println!("The Pig Latin of {str} is {}", convert_to_pig_latin(str));
@@ -18,14 +23,23 @@ fn main() {
     text_interface();
 }
 
-fn median(list: &Vec<i32>) -> i32 {
+fn median(list: &Vec<i32>) -> f64 {
     let mut sorted_list = list.clone();
     sorted_list.sort();
 
-    sorted_list[list.len() / 2]
+    let len = list.len();
+    if len % 2 != 0 {
+        sorted_list[list.len() / 2] as f64
+    }
+    else {
+        let first = sorted_list[list.len() / 2];
+        let second = sorted_list[(list.len() / 2) - 1];
+        (first + second) as f64 / 2.0
+    }
+    
 }
 
-fn mode(list: &Vec<i32>) -> i32 {
+fn mode(list: &Vec<i32>) -> Option<i32> {
     let mut elem_count = HashMap::new();
 
     for elem in list {
@@ -35,9 +49,14 @@ fn mode(list: &Vec<i32>) -> i32 {
         *count += 1;
     }
 
-    let (key, _) = elem_count.iter().max_by_key(|entry| entry.1).unwrap();
+    let (key, value) = elem_count.iter().max_by_key(|entry| entry.1).unwrap();
+    if *value == 1 {
+        None
+    }
+    else {
+        Some(*key)
+    }
 
-    *key
 }
 
 fn convert_to_pig_latin(str: &str) -> String {
