@@ -1,0 +1,11 @@
+[package]
+name = "error-handling"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+
+# This is if you want the program to exit without cleaning up the stack
+# In this case, the OS will need to do the cleanup
+# [profile.release]
+# panic = "abort"
