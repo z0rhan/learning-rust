@@ -8,5 +8,22 @@ resolver = "3"
 members = [
     "variables",
     "data-types",
-    "function"
-, "control-flow", "chapter3ex", "ownership", "ref-and-borrow", "slices", "structs", "methods", "enums", "match-construct", "concise-control-flow", "modules", "vector", "string", "hash-map", "chapter8ex", "error-handling", "guessing-game"]
+    "function",
+    "control-flow",
+    "chapter3ex",
+    "ownership",
+    "ref-and-borrow",
+    "slices",
+    "structs",
+    "methods",
+    "enums",
+    "match-construct",
+    "concise-control-flow",
+    "modules",
+    "vector",
+    "string",
+    "hash-map",
+    "chapter8ex",
+    "error-handling",
+    "guessing-game",
+    "generics"]
