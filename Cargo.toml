@@ -26,4 +26,5 @@ members = [
     "chapter8ex",
     "error-handling",
     "guessing-game",
-    "generics"]
+    "generics",
+    "traits"]
