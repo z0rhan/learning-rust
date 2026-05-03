@@ -27,4 +27,4 @@ members = [
     "error-handling",
     "guessing-game",
     "generics",
-    "traits", "lifetime"]
+    "traits", "lifetime", "tests"]
