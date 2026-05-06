@@ -59,7 +59,7 @@ fn new_invalid_dimenstion() {
 }
 
 // We can also use Result with tests
-// Then, the value in Err() is printed if the test fails and continues
+// Then, the value in Err(T) is printed if the test fails and continues
 // whereas with assert*, the program would stop immediately
 // Also, it means the value in Err() should be printable
 #[test]
