@@ -1,30 +1,22 @@
-pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
-    let mut results = Vec::new();
-
-    for line in contents.lines() {
-        if line.contains(query) {
-            results.push(line);
-        }
-    }
-
-    results
+pub fn search<'a>(
+    query: &'a str,
+    contents: &'a str
+) -> impl Iterator<Item = &'a str>
+{
+    contents
+        .lines()
+        .filter(move |line| line.contains(query))
 }
 
 pub fn search_case_insensitive<'a>(
     query: &str,
     contents: &'a str
-) -> Vec<&'a str>
+) -> impl Iterator<Item = &'a str>
 {
     let query = query.to_lowercase();
-    let mut results = Vec::new();
-
-    for line in contents.lines() {
-        if line.to_lowercase().contains(&query) {
-            results.push(line);
-        }
-    }
-
-    results
+    contents
+        .lines()
+        .filter(move |line| line.to_lowercase().contains(&query))
 }
 
 #[cfg(test)]
@@ -40,7 +32,9 @@ safe, fast and productive.
 Pick three.
 Duct tape";
 
-        assert_eq!(vec!["safe, fast and productive."], search(query, contents));
+        let mut iter = search(query, contents);
+        assert_eq!("safe, fast and productive.",
+            iter.next().expect("Iterator should not be empty"));
     }
 
     #[test]
@@ -52,9 +46,14 @@ safe, fast and productive.
 Pick three.
 Trust me.";
 
+        let mut iter = search_case_insensitive(query, contents);
         assert_eq!(
-            vec!["Rust:", "Trust me."],
-            search_case_insensitive(query, contents)
+            "Rust:",
+            iter.next().expect("Iterator should not be empty")
+        );
+        assert_eq!(
+            "Trust me.",
+            iter.next().expect("Iterator should not be empty")
         );
     }
 }

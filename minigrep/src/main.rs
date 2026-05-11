@@ -6,9 +6,9 @@ use std::error::Error;
 use minigrep::{search, search_case_insensitive};
 
 fn main() {
-    let args: Vec<String> = env::args().collect();
+    let args_iter = env::args();
 
-    let config = Config::build(&args).unwrap_or_else(|err| {
+    let config = Config::build(args_iter).unwrap_or_else(|err| {
         eprintln!("Failed to parse arguments: {err}");
         process::exit(1);
     });
@@ -26,16 +26,28 @@ struct Config {
 }
 
 impl Config {
-    fn build(args: &[String]) -> Result<Self, &str> {
-        if args.len() < 3 {
-            return Err("Not enough arguments")
-        }
+    // Here, earilier I did just &str for return type
+    // Due to lifetime elision, it made the lifetime of &str tied to args
+    // which does not give any error but its not true, LESSON LEARNED
+    // fn build(mut args_iter: impl Iterator<Item = String>) -> Result<Self, &'static str> {
+    fn build(mut args_iter: env::Args) -> Result<Self, &'static str> {
+        args_iter.next();
+
+        let query = match args_iter.next() {
+            Some(val) => val,
+            None => return Err("Not enough arguemetns")
+        };
+
+        let filepath = match args_iter.next() {
+            Some(val) => val,
+            None => return Err("Not enough arguemetns")
+        };
 
         let ignore_case = env::var("IGNORE_CASE").is_ok();
 
         Ok(Config {
-            query: args[1].clone(),
-            filepath: args[2].clone(),
+            query: query,
+            filepath: filepath,
             ignore_case: ignore_case
         })
     }
@@ -44,16 +56,16 @@ impl Config {
 fn run(config: Config) -> Result<(), Box<dyn Error>>{
     let contents = fs::read_to_string(&config.filepath)?;
 
-    let results = if config.ignore_case {
-        search_case_insensitive(&config.query, &contents)
+    if config.ignore_case {
+        for line in search_case_insensitive(&config.query, &contents) {
+            println!("{line}")
+        }
     }
     else {
-        search(&config.query, &contents)
+        for line in search(&config.query, &contents) {
+            println!("{line}")
+        }
     };
-
-    for line in results {
-        println!("{line}")
-    }
 
     Ok(())
 }
