@@ -33,5 +33,6 @@ members = [
     "test-organization",
     "minigrep",
     "closure",
-    "iterators"
+    "iterators",
+    "docs",
 ]
