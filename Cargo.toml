@@ -35,4 +35,5 @@ members = [
     "closure",
     "iterators",
     "docs",
+    "box-for-heap"
 ]
