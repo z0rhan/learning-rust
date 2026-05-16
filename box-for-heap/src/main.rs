@@ -1,6 +1,8 @@
 use List::{Cons, Nil};
+use std::fmt::Debug;
 use std::ops::Deref;
 use std::ops::DerefMut;
+use std::mem;
 
 // From &T to &U when T: Deref<Target = U>
 // From &mut T to &mut U when T: DerefMut<Target = U>
@@ -35,6 +37,13 @@ fn main() {
     println!("z : {}", *z);
     *z = 6;
     println!("z : {}", *z);
+
+    // Sometime we want to free the resources before the end of scope
+    // In that case, we cannot call the drop method ourselves
+    // Instead we can use the std::mem::drop function provided by std lib
+    mem::drop(y);
+    // z(6) is dropped first before y(5) is dropped at the end of the scope
+    // but we changed the order by calling std::mem::drop(y);
 }
 
 fn hello(str: &str) {
@@ -71,15 +80,23 @@ enum List {
 }
 
 // Tuple struct
-struct MyBox<T>(T);
+struct MyBox<T>(T)
+where
+    T: Debug;
 
-impl<T> MyBox<T> {
+impl<T> MyBox<T>
+where
+    T: Debug
+{
     fn new(x: T) -> MyBox<T> {
         MyBox(x)
     }
 }
 
-impl<T> Deref for MyBox<T> {
+impl<T> Deref for MyBox<T>
+where
+    T: Debug
+{
     type Target = T;
 
     fn deref(&self) -> &Self::Target {
@@ -87,8 +104,21 @@ impl<T> Deref for MyBox<T> {
     }
 }
 
-impl<T> DerefMut for MyBox<T> {
+impl<T> DerefMut for MyBox<T>
+where
+    T: Debug
+{
     fn deref_mut(&mut self) -> &mut Self::Target {
         &mut self.0
+    }
+}
+
+// Drop trait something like destructor in cpp
+impl<T> Drop for MyBox<T>
+where
+    T: Debug
+{
+    fn drop(&mut self) {
+        println!("Dropping MyBox with data: {:?}", self.0)
     }
 }
