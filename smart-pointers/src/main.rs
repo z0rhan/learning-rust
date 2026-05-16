@@ -1,8 +1,6 @@
-use List::{Cons, Nil};
-use std::fmt::Debug;
-use std::ops::Deref;
-use std::ops::DerefMut;
 use std::mem;
+use smart_pointers::box_deref_drop::MyBox;
+use smart_pointers::box_deref_drop::List::{Nil, Cons};
 
 // From &T to &U when T: Deref<Target = U>
 // From &mut T to &mut U when T: DerefMut<Target = U>
@@ -46,11 +44,11 @@ fn main() {
     // but we changed the order by calling std::mem::drop(y);
 }
 
-fn hello(str: &str) {
+pub fn hello(str: &str) {
     println!("Hello, {str}")
 }
 
-fn box_for_heap() {
+pub fn box_for_heap() {
     let x = 5;
     // y is now a ref to x
     let y = &x;
@@ -72,53 +70,3 @@ fn box_for_heap() {
     let list = Cons(1, Box::new(Cons(2, Box::new(Cons(3, Box::new(Nil))))));
 }
 
-enum List {
-    // With just List, the size is not known at compile time
-    // Box helps with that
-    Cons(i32, Box<List>),
-    Nil
-}
-
-// Tuple struct
-struct MyBox<T>(T)
-where
-    T: Debug;
-
-impl<T> MyBox<T>
-where
-    T: Debug
-{
-    fn new(x: T) -> MyBox<T> {
-        MyBox(x)
-    }
-}
-
-impl<T> Deref for MyBox<T>
-where
-    T: Debug
-{
-    type Target = T;
-
-    fn deref(&self) -> &Self::Target {
-        &self.0
-    }
-}
-
-impl<T> DerefMut for MyBox<T>
-where
-    T: Debug
-{
-    fn deref_mut(&mut self) -> &mut Self::Target {
-        &mut self.0
-    }
-}
-
-// Drop trait something like destructor in cpp
-impl<T> Drop for MyBox<T>
-where
-    T: Debug
-{
-    fn drop(&mut self) {
-        println!("Dropping MyBox with data: {:?}", self.0)
-    }
-}
