@@ -35,5 +35,6 @@ members = [
     "closure",
     "iterators",
     "docs",
-    "smart-pointers"
-]
+    "smart-pointers", 
+    "ref-count"
+    ]
