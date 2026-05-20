@@ -37,4 +37,4 @@ members = [
     "docs",
     "smart-pointers", 
     "ref-count",
-    "concurrency", "asynchronous"]
+    "concurrency", "asynchronous", "async-traits"]
